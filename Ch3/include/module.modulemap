@@ -1,0 +1,5 @@
+module Ch3 {
+  header "h3api.h"
+  link "z"
+  export *
+}
