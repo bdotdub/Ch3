@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 Uber Technologies, Inc.
+ * Copyright 2016-2018 Uber Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,13 +53,6 @@ extern "C" {
 
 /** @brief the H3Index fits within a 64-bit unsigned integer */
 typedef uint64_t H3Index;
-
-/* library version numbers generated from VERSION file */
-// clang-format off
-#define H3_VERSION_MAJOR 3
-#define H3_VERSION_MINOR 6
-#define H3_VERSION_PATCH 0
-// clang-format on
 
 /** Maximum number of cell boundary vertices; worst case is pentagon:
  *  5 original verts + 5 edge crossings
@@ -135,16 +128,6 @@ struct LinkedGeoPolygon {
     LinkedGeoLoop *last;
     LinkedGeoPolygon *next;
 };
-
-/** @struct CoordIJ
- * @brief IJ hexagon coordinates
- *
- * Each axis is spaced 120 degrees apart.
- */
-typedef struct {
-    int i;  ///< i component
-    int j;  ///< j component
-} CoordIJ;
 
 /** @defgroup geoToH3 geoToH3
  * Functions for geoToH3
@@ -282,28 +265,6 @@ double H3_EXPORT(edgeLengthM)(int res);
 int64_t H3_EXPORT(numHexagons)(int res);
 /** @} */
 
-/** @defgroup getRes0Indexes getRes0Indexes
- * Functions for getRes0Indexes
- * @{
- */
-/** @brief returns the number of resolution 0 indexes */
-int H3_EXPORT(res0IndexCount)();
-
-/** @brief provides all base cells */
-void H3_EXPORT(getRes0Indexes)(H3Index *out);
-/** @} */
-
-/** @defgroup getPentagonIndexes getPentagonIndexes
- * Functions for getPentagonIndexes
- * @{
- */
-/** @brief returns the number of pentagons per resolution */
-int H3_EXPORT(pentagonIndexCount)();
-
-/** @brief generates all pentagons at the specified resolution */
-void H3_EXPORT(getPentagonIndexes)(int res, H3Index *out);
-/** @} */
-
 /** @defgroup h3GetResolution h3GetResolution
  * Functions for h3GetResolution
  * @{
@@ -366,15 +327,6 @@ int H3_EXPORT(maxH3ToChildrenSize)(H3Index h, int childRes);
 void H3_EXPORT(h3ToChildren)(H3Index h, int childRes, H3Index *children);
 /** @} */
 
-/** @defgroup h3ToCenterChild h3ToCenterChild
- * Functions for h3ToCenterChild
- * @{
- */
-/** @brief returns the center child of the given hexagon at the specified
- * resolution */
-H3Index H3_EXPORT(h3ToCenterChild)(H3Index h, int childRes);
-/** @} */
-
 /** @defgroup compact compact
  * Functions for compact
  * @{
@@ -412,17 +364,6 @@ int H3_EXPORT(h3IsResClassIII)(H3Index h);
  */
 /** @brief determines if a hexagon is actually a pentagon */
 int H3_EXPORT(h3IsPentagon)(H3Index h);
-/** @} */
-
-/** @defgroup h3GetFaces h3GetFaces
- * Functions for h3GetFaces
- * @{
- */
-/** @brief Max number of icosahedron faces intersected by an index */
-int H3_EXPORT(maxFaceCount)(H3Index h3);
-
-/** @brief Find all icosahedron faces intersected by a given H3 index */
-void H3_EXPORT(h3GetFaces)(H3Index h3, int *out);
 /** @} */
 
 /** @defgroup h3IndexesAreNeighbors h3IndexesAreNeighbors
@@ -506,35 +447,6 @@ void H3_EXPORT(getH3UnidirectionalEdgeBoundary)(H3Index edge, GeoBoundary *gb);
  */
 /** @brief Returns grid distance between two indexes */
 int H3_EXPORT(h3Distance)(H3Index origin, H3Index h3);
-/** @} */
-
-/** @defgroup h3Line h3Line
- * Functions for h3Line
- * @{
- */
-/** @brief Number of indexes in a line connecting two indexes */
-int H3_EXPORT(h3LineSize)(H3Index start, H3Index end);
-
-/** @brief Line of h3 indexes connecting two indexes */
-int H3_EXPORT(h3Line)(H3Index start, H3Index end, H3Index *out);
-/** @} */
-
-/** @defgroup experimentalH3ToLocalIj experimentalH3ToLocalIj
- * Functions for experimentalH3ToLocalIj
- * @{
- */
-/** @brief Returns two dimensional coordinates for the given index */
-int H3_EXPORT(experimentalH3ToLocalIj)(H3Index origin, H3Index h3,
-                                       CoordIJ *out);
-/** @} */
-
-/** @defgroup experimentalLocalIjToH3 experimentalLocalIjToH3
- * Functions for experimentalLocalIjToH3
- * @{
- */
-/** @brief Returns index for the given two dimensional coordinates */
-int H3_EXPORT(experimentalLocalIjToH3)(H3Index origin, const CoordIJ *ij,
-                                       H3Index *out);
 /** @} */
 
 #ifdef __cplusplus
