@@ -80,4 +80,6 @@ pushd "$H3_SRC_DIR" || badexit
     echo Copying source files into working directory
     cp -R ./src/h3lib/lib/ "$CWD"/Ch3
     cp -R ./src/h3lib/include/ "$CWD"/Ch3/include
+    # Hacky
+    mv "$CWD"/Ch3/include/h3api.h.in "$CWD"/Ch3/include/h3api.h
 popd || badexit
