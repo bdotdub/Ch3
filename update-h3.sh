@@ -58,8 +58,10 @@ CWD=$(pwd)
 
 # clean up existing C source code.
 find . -name "*.c" -depth 1 -exec rm {} \;
+find "$CWD"/Ch3 -name "*.c" -depth 1 -exec rm {} \;
 if [ -d "$H3_INC_DIR" ]; then
     rm -rf "$H3_INC_DIR"
+    rm -rf "$CWD/Ch3/$H3_INC_DIR"
 fi
 
 echo Downloading H3 from "$GIT_REMOTE"
